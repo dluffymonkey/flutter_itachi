@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_itachi/util/handle_error_utils.dart';
+import 'package:flutter_itachi/util/log_utils.dart';
 import 'package:sp_util/sp_util.dart';
 
 Future<void> main() async {
@@ -18,4 +19,15 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
 }
 
+class MyApp extends StatelessWidget {
+  MyApp({key? key, this.home, this.theme}) : super(key: key) {
+    Log.init();
+    // initDio();
+    // Routes.initRoutes();
+    // initQuickActions();
+  }
+
+  final Widget? home;
+  final ThemeData? theme;
+}
 
