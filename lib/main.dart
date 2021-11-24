@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_itachi/demo/demo_page.dart';
+import 'package:flutter_itachi/home/home_page.dart';
 import 'package:flutter_itachi/net/dio_utils.dart';
 import 'package:flutter_itachi/res/constant.dart';
 import 'package:flutter_itachi/routers/not_found_page.dart';
+import 'package:flutter_itachi/routers/routers.dart';
 import 'package:flutter_itachi/setting/provider/locale_provider.dart';
 import 'package:flutter_itachi/setting/provider/theme_provider.dart';
 import 'package:flutter_itachi/util/device_utils.dart';
@@ -12,6 +15,7 @@ import 'package:flutter_itachi/util/log_utils.dart';
 import 'package:flutter_itachi/util/theme_utils.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:sp_util/sp_util.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_itachi/net/intercept.dart';
@@ -75,6 +79,31 @@ class MyApp extends StatelessWidget {
     );
   }
 
+  void initQuickActions() {
+    if (Device.isMobile) {
+      const QuickActions quickActions = QuickActions();
+      if (Device.isIOS) {
+        // Android每次是重新启动activity，所以放在了splash_page处理。
+        // 总体来说使用不方便，这种动态的方式在安卓中局限性高。这里仅做练习使用。
+        quickActions.initialize((String shortcutType) async {
+          if (shortcutType == 'demo') {
+            navigatorKey.currentState?.push<dynamic>(MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => const DemoPage(),
+            ));
+          }
+        });
+      }
+
+      quickActions.setShortcutItems(<ShortcutItem>[
+        const ShortcutItem(
+            type: 'demo',
+            localizedTitle: 'Demo',
+            icon: 'flutter_dash_black'
+        ),
+      ]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Widget app = MultiProvider(
@@ -89,6 +118,7 @@ class MyApp extends StatelessWidget {
       ),
     );
 
+    /// Toast 配置
     return OKToast(
       child: app,
       backgroundColor: Colors.black54,
@@ -110,8 +140,8 @@ class MyApp extends StatelessWidget {
       theme: theme ?? provider.getTheme(),
       darkTheme: provider.getTheme(isDarkMode: true),
       themeMode: provider.getThemeMode(),
-      // home: home ?? const SplashPage(),
-      // onGenerateRoute: Routers.router.generator,
+      home: home ?? const SplashPage(),
+      onGenerateRoute: Routers.router.generator,
       // localizationsDelegates: ,
       // supportedLocales: ,
       locale: localeProvider.locale,
