@@ -1,5 +1,5 @@
 import 'package:azlistview/azlistview.dart';
-import 'package:flutter_itachi/generated/base/json_convert_content.dart';
+import 'package:flutter_itachi/generated/json/base/json_convert_content.dart';
 
 class BankEntity with JsonConvert<BankEntity>, ISuspensionBean {
 

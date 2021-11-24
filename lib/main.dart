@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_itachi/net/dio_utils.dart';
 import 'package:flutter_itachi/res/constant.dart';
+import 'package:flutter_itachi/routers/not_found_page.dart';
 import 'package:flutter_itachi/setting/provider/locale_provider.dart';
 import 'package:flutter_itachi/setting/provider/theme_provider.dart';
+import 'package:flutter_itachi/util/device_utils.dart';
 import 'package:flutter_itachi/util/handle_error_utils.dart';
 import 'package:flutter_itachi/util/log_utils.dart';
+import 'package:flutter_itachi/util/theme_utils.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sp_util/sp_util.dart';
 import 'package:url_strategy/url_strategy.dart';
-
-import 'net/intercept.dart';
+import 'package:flutter_itachi/net/intercept.dart';
 
 Future<void> main() async {
 //  debugProfileBuildsEnabled = true;
@@ -86,6 +89,14 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+
+    return OKToast(
+      child: app,
+      backgroundColor: Colors.black54,
+      textPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      radius: 20.0,
+      position: ToastPosition.bottom,
+    );
   }
 
   Widget _buildMaterialApp(ThemeProvider provider, LocaleProvider localeProvider) {
@@ -102,9 +113,32 @@ class MyApp extends StatelessWidget {
       themeMode: provider.getThemeMode(),
       // home: home ?? const SplashPage(),
       // onGenerateRoute: Routers.router.generator,
-      localizationsDelegates: ,
+      // localizationsDelegates: ,
+      // supportedLocales: ,
+      locale: localeProvider.locale,
+      navigatorKey: navigatorKey,
+      builder: (BuildContext context, Widget? child) {
+        /// 仅针对安卓
+        if (Device.isAndroid) {
+          /// 切换深色模式会触发此方法，这里设置导航栏颜色
+          ThemeUtils.setSystemNavigationBar(provider.getThemeMode());
+        }
+
+        /// 保证文字大小不受手机系统设置影响 https://www.kikt.top/posts/flutter/layout/dynamic-text/
+        return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: child!,
+        );
+      },
+
+      /// 因为使用了fluro，这里设置主要针对Web
+      onUnknownRoute: (_) {
+        return MaterialPageRoute<void>(
+            builder: (BuildContext content) => const NotFoundPage(),
+        );
+      },
+      restorationScopeId: 'app',
     );
   }
-
 }
 
