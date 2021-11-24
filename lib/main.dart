@@ -43,14 +43,16 @@ Future<void> main() async {
 
   /// 隐藏状态栏。为启动页、引导页设置。完成后修改回显示状态栏。
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
+  // TODO(weilu): 启动体验不佳。状态栏、导航栏在冷启动开始的一瞬间为黑色，且无法通过隐藏、修改颜色等方式进行处理。。。
+  // 相关问题跟踪：https://github.com/flutter/flutter/issues/73351
 }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key, this.home, this.theme}) : super(key: key) {
     Log.init();
     initDio();
-    // Routes.initRoutes();
-    // initQuickActions();
+    Routes.initRoutes();
+    initQuickActions();
   }
 
   final Widget? home;
@@ -59,14 +61,11 @@ class MyApp extends StatelessWidget {
 
   void initDio() {
     final List<Interceptor> interceptors = <Interceptor>[];
-    
     /// 统一添加身份验证请求头
     interceptors.add(AuthInterceptor());
-    
     /// 刷新Token
     interceptors.add(TokenInterceptor());
-    
-    ///打印Log(生产模式去除)
+    /// 打印Log(生产模式去除)
     if (!Constant.inProduction) {
       interceptors.add(LoggingInterceptor());
     }
@@ -107,10 +106,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget app = MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ThemeProvider()),
-          ChangeNotifierProvider(create: (_) => LocaleProvider())
-        ],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => LocaleProvider())
+      ],
       child: Consumer2<ThemeProvider, LocaleProvider>(
         builder: (_, ThemeProvider provider, LocaleProvider localeProvider, __) {
           return _buildMaterialApp(provider, localeProvider);
@@ -120,11 +119,11 @@ class MyApp extends StatelessWidget {
 
     /// Toast 配置
     return OKToast(
-      child: app,
-      backgroundColor: Colors.black54,
-      textPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-      radius: 20.0,
-      position: ToastPosition.bottom,
+        child: app,
+        backgroundColor: Colors.black54,
+        textPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        radius: 20.0,
+        position: ToastPosition.bottom
     );
   }
 
@@ -141,9 +140,9 @@ class MyApp extends StatelessWidget {
       darkTheme: provider.getTheme(isDarkMode: true),
       themeMode: provider.getThemeMode(),
       home: home ?? const SplashPage(),
-      onGenerateRoute: Routers.router.generator,
-      // localizationsDelegates: ,
-      // supportedLocales: ,
+      onGenerateRoute: Routes.router.generator,
+      // localizationsDelegates: DeerLocalizations.localizationsDelegates,
+      // supportedLocales: DeerLocalizations.supportedLocales,
       locale: localeProvider.locale,
       navigatorKey: navigatorKey,
       builder: (BuildContext context, Widget? child) {
@@ -155,15 +154,15 @@ class MyApp extends StatelessWidget {
 
         /// 保证文字大小不受手机系统设置影响 https://www.kikt.top/posts/flutter/layout/dynamic-text/
         return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: child!,
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child!,
         );
       },
 
       /// 因为使用了fluro，这里设置主要针对Web
       onUnknownRoute: (_) {
         return MaterialPageRoute<void>(
-            builder: (BuildContext content) => const NotFoundPage(),
+          builder: (BuildContext context) => const NotFoundPage(),
         );
       },
       restorationScopeId: 'app',

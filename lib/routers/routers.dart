@@ -5,7 +5,7 @@ import 'package:flutter_itachi/home/webview_page.dart';
 import 'package:flutter_itachi/routers/i_router.dart';
 import 'package:flutter_itachi/routers/not_found_page.dart';
 
-class Routers {
+class Routes {
   static String home = '/home';
   static String webViewPage = '/webView';
 
@@ -13,7 +13,7 @@ class Routers {
 
   static final FluroRouter router = FluroRouter();
 
-  static void initRouters() {
+  static void initRoutes() {
     /// 指定路由跳转错误返回页
     router.notFoundHandler = Handler(
      handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
