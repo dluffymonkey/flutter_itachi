@@ -1,0 +1,17 @@
+{
+  "@@locale": "zh",
+  "homePageTitle": "首页",
+  "@homePageTitle": {
+    "description": "主页标题"
+  },
+  "helloWorld": "世界你好啊！{userName}",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "小明"
+      }
+    }
+  }
+}

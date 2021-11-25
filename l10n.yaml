@@ -1,0 +1,3 @@
+arb-dir: lib/l10n  #指定arb多国语文件目录
+template-arb-file: app_zh.arb #指定arb多国语文件
+output-localization-file: app_localizations.dart  #指定多国语配置生成的代码文件，代码中自动生成类文件AppLocalizations.dart

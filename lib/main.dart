@@ -19,7 +19,6 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:sp_util/sp_util.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_itachi/net/intercept.dart';
-import 'package:flutter_gen/gen_l10n/itachi_localizations.dart';
 
 Future<void> main() async {
 //  debugProfileBuildsEnabled = true;
@@ -142,8 +141,9 @@ class MyApp extends StatelessWidget {
       themeMode: provider.getThemeMode(),
       home: home ?? const SplashPage(),
       onGenerateRoute: Routes.router.generator,
-      localizationsDelegates: ItachiLocalizations.localizationsDelegates,
-      supportedLocales: ItachiLocalizations.supportedLocales,
+      /// flutter gen-l10n
+      // localizationsDelegates: ItachiLocalizations.localizationsDelegates,
+      // supportedLocales: ItachiLocalizations.supportedLocales,
       locale: localeProvider.locale,
       navigatorKey: navigatorKey,
       builder: (BuildContext context, Widget? child) {
