@@ -21,5 +21,37 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "forgotPasswordLink":
+            MessageLookupByLibrary.simpleMessage("Forgot Password"),
+        "getVerificationCode":
+            MessageLookupByLibrary.simpleMessage("Get verification code"),
+        "inputPasswordHint":
+            MessageLookupByLibrary.simpleMessage("Please enter the password"),
+        "inputPhoneHint":
+            MessageLookupByLibrary.simpleMessage("Please enter phone number"),
+        "inputPhoneInvalid": MessageLookupByLibrary.simpleMessage(
+            "Please input valid mobile phone number"),
+        "inputUsernameHint":
+            MessageLookupByLibrary.simpleMessage("Please input username"),
+        "inputVerificationCodeHint": MessageLookupByLibrary.simpleMessage(
+            "Please enter verification code"),
+        "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "noAccountRegisterLink": MessageLookupByLibrary.simpleMessage(
+            "No account yet? Register now"),
+        "openYourAccount":
+            MessageLookupByLibrary.simpleMessage("Open your account"),
+        "passwordLogin": MessageLookupByLibrary.simpleMessage("Password Login"),
+        "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "registeredTips": MessageLookupByLibrary.simpleMessage(
+            "Unregistered mobile phone number, please "),
+        "resetLoginPassword":
+            MessageLookupByLibrary.simpleMessage("Reset Login Password"),
+        "title": MessageLookupByLibrary.simpleMessage("Flutter Deer"),
+        "verificationButton": MessageLookupByLibrary.simpleMessage(
+            "Not really sent, just log in!"),
+        "verificationCodeLogin":
+            MessageLookupByLibrary.simpleMessage("Verification Code Login")
+      };
 }
