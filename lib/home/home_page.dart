@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  _SplashPageState createState() => _SplashPageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Text('SplashPage');
+    return Text('Home');
   }
 }
 

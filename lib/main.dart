@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_itachi/demo/demo_page.dart';
-import 'package:flutter_itachi/home/home_page.dart';
+import 'package:flutter_itachi/home/splash_page.dart';
 import 'package:flutter_itachi/net/dio_utils.dart';
 import 'package:flutter_itachi/res/constant.dart';
 import 'package:flutter_itachi/routers/not_found_page.dart';

@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_itachi/home/splash_page.dart';
+import 'package:flutter_itachi/home/home_page.dart';
 import 'package:flutter_itachi/home/webview_page.dart';
 import 'package:flutter_itachi/routers/i_router.dart';
 import 'package:flutter_itachi/routers/not_found_page.dart';
