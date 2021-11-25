@@ -1,10 +1,9 @@
-
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_itachi/net/base_entity.dart';
 import 'package:flutter_itachi/res/constant.dart';
 import 'package:flutter_itachi/util/log_utils.dart';
+import 'base_entity.dart';
 import 'error_handle.dart';
 
 /// 默认dio配置
@@ -45,7 +44,7 @@ class DioUtils {
       /// dio默认json解析，这里指定返回UTF8字符串，自己处理解析。（可也以自定义Transformer实现）
       responseType: ResponseType.plain,
       validateStatus: (_) {
-        /// 不使用http状态码判断状态，使用AdapterInterceptor来处理（适用于标准REST风格）
+        // 不使用http状态码判断状态，使用AdapterInterceptor来处理（适用于标准REST风格）
         return true;
       },
       baseUrl: _baseUrl,
@@ -107,12 +106,66 @@ class DioUtils {
     }
   }
 
-
-
   Options _checkOptions(String method, Options? options) {
     options ??= Options();
     options.method = method;
     return options;
+  }
+
+  Future requestNetwork<T>(Method method, String url, {
+    NetSuccessCallback<T?>? onSuccess,
+    NetErrorCallback? onError,
+    Object? params,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+  }) {
+    return _request<T>(method.value, url,
+      data: params,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    ).then<void>((BaseEntity<T> result){
+      if (result.code == 0) {
+        onSuccess?.call(result.data);
+      } else {
+        _onError(result.code, result.message, onError);
+      }
+    }, onError: (dynamic e) {
+      _cancelLogPrint(e, url);
+      final NetError error = ExceptionHandle.handleException(e);
+      _onError(error.code, error.msg, onError);
+    });
+  }
+
+  /// 统一处理(onSuccess返回T对象，onSuccessList返回 List<T>)
+  void asyncRequestNetwork<T>(Method method, String url, {
+    NetSuccessCallback<T?>? onSuccess,
+    NetErrorCallback? onError,
+    Object? params,
+    Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
+    Options? options,
+  }) {
+    Stream.fromFuture(_request<T>(method.value, url,
+      data: params,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    )).asBroadcastStream()
+        .listen((result) {
+      if (result.code == 0) {
+        if (onSuccess != null) {
+          onSuccess(result.data);
+        }
+      } else {
+        _onError(result.code, result.message, onError);
+      }
+    }, onError: (dynamic e) {
+      _cancelLogPrint(e, url);
+      final NetError error = ExceptionHandle.handleException(e);
+      _onError(error.code, error.msg, onError);
+    });
   }
 
   void _cancelLogPrint(dynamic e, String url) {
@@ -129,7 +182,6 @@ class DioUtils {
     Log.e('接口请求异常： code: $code, mag: $msg');
     onError?.call(code, msg);
   }
-
 }
 
 Map<String, dynamic> parseData(String data) {

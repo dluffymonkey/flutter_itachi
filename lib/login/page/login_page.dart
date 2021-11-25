@@ -2,12 +2,15 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_itachi/login/login_router.dart';
+import 'package:flutter_itachi/login/widgets/my_text_field.dart';
 import 'package:flutter_itachi/res/constant.dart';
 import 'package:flutter_itachi/res/resources.dart';
 import 'package:flutter_itachi/routers/fluro_navigator.dart';
 import 'package:flutter_itachi/store/store_router.dart';
+import 'package:flutter_itachi/util/change_notifier_manage.dart';
 import 'package:flutter_itachi/util/other_utils.dart';
 import 'package:flutter_itachi/widgets/my_app_bar.dart';
+import 'package:flutter_itachi/widgets/my_button.dart';
 import 'package:flutter_itachi/widgets/my_scroll_view.dart';
 
 /// design/1注册登录/index.html
@@ -18,7 +21,7 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with ChangeNotifierMixin<LoginPage> {
 
   // 定义一个controller
   final TextEditingController _nameController = TextEditingController();
@@ -96,6 +99,55 @@ class _LoginPageState extends State<LoginPage> {
       style: TextStyles.textBold26,
     ),
     Gaps.vGap16,
-
+    MyTextField(
+      key: const Key('phone'),
+      focusNode: _nodeText1,
+      controller: _nameController,
+      maxLength: 11,
+      keyboardType: TextInputType.phone,
+      hintText: '请输入账号',
+    ),
+    Gaps.vGap8,
+    MyTextField(
+      key: const Key('password'),
+      keyName: 'password',
+      focusNode: _nodeText2,
+      isInputPwd: true,
+      controller: _passwordController,
+      keyboardType: TextInputType.visiblePassword,
+      maxLength: 16,
+      hintText: '请输入密码',
+    ),
+    Gaps.vGap24,
+    MyButton(
+      key: const Key('login'),
+      onPressed: _clickable ? _login : null,
+      text: '登录',
+    ),
+    Container(
+      height: 40.0,
+      alignment: Alignment.centerRight,
+      child: GestureDetector(
+        child: Text(
+          '忘记密码',
+          key: const Key('forgotPassword'),
+          style: Theme.of(context).textTheme.subtitle2,
+        ),
+        onTap: () => NavigatorUtils.push(context, LoginRouter.resetPasswordPage),
+      ),
+    ),
+    Gaps.vGap16,
+    Container(
+      alignment: Alignment.center,
+      child: GestureDetector(
+        child: Text(
+          '还没账号？快去注册',
+          key: const Key('noAccountRegister'),
+          style: TextStyle(
+            color: Theme.of(context).primaryColor
+          ),
+        ),
+      ),
+    )
   ];
 }
