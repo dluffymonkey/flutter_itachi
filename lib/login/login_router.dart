@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter_itachi/login/page/login_page.dart';
+import 'package:flutter_itachi/login/page/sms_login_page.dart';
 import 'package:flutter_itachi/routers/i_router.dart';
 
 class LoginRouter implements IRouterProvider {
@@ -11,5 +12,6 @@ class LoginRouter implements IRouterProvider {
 
   void initRouter(FluroRouter router) {
     router.define(loginPage, handler: Handler(handlerFunc: (_, __) => const LoginPage()));
+    router.define(smsLoginPage, handler: Handler(handlerFunc: (_, __) => const SMSLoginPage()));
   }
 }
