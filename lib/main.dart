@@ -19,6 +19,7 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:sp_util/sp_util.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter_itachi/net/intercept.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
 //  debugProfileBuildsEnabled = true;
@@ -142,8 +143,8 @@ class MyApp extends StatelessWidget {
       home: home ?? const SplashPage(),
       onGenerateRoute: Routes.router.generator,
       /// flutter gen-l10n
-      // localizationsDelegates: AppLocalizations.localizationsDelegates,
-      // supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       locale: localeProvider.locale,
       navigatorKey: navigatorKey,
       builder: (BuildContext context, Widget? child) {

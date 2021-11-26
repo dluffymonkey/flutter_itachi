@@ -34,10 +34,10 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  # 去除网页URL中的“#”(hash) https://flutter.cn/docs/development/ui/navigation/url-strategies
-  url_strategy: 0.2.0
   # Localization https://github.com/dart-lang/intl
   intl: ^0.17.0
+  # 去除网页URL中的“#”(hash) https://flutter.cn/docs/development/ui/navigation/url-strategies
+  url_strategy: 0.2.0
   # Toast插件 https://github.com/OpenFlutter/flutter_oktoast
   oktoast: ^3.1.5
   # 网络库 https://github.com/flutterchina/dio
@@ -175,5 +175,3 @@ flutter:
         - asset: assets/fonts/Roboto-Thin.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-flutter_intl:
-  enabled: true
