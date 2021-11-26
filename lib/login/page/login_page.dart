@@ -13,6 +13,7 @@ import 'package:flutter_itachi/util/other_utils.dart';
 import 'package:flutter_itachi/widgets/my_app_bar.dart';
 import 'package:flutter_itachi/widgets/my_button.dart';
 import 'package:flutter_itachi/widgets/my_scroll_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// design/1注册登录/index.html
 class LoginPage extends StatefulWidget {
@@ -100,7 +101,7 @@ class _LoginPageState extends State<LoginPage> with ChangeNotifierMixin<LoginPag
 
   List<Widget> get _buildBody => <Widget>[
     Text(
-      '密码登录',
+      AppLocalizations.of(context)!.helloWorld,
       style: TextStyles.textBold26,
     ),
     Gaps.vGap16,
