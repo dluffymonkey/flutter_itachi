@@ -142,8 +142,8 @@ class MyApp extends StatelessWidget {
       home: home ?? const SplashPage(),
       onGenerateRoute: Routes.router.generator,
       /// flutter gen-l10n
-      // localizationsDelegates: ItachiLocalizations.localizationsDelegates,
-      // supportedLocales: ItachiLocalizations.supportedLocales,
+      // localizationsDelegates: AppLocalizations.localizationsDelegates,
+      // supportedLocales: AppLocalizations.supportedLocales,
       locale: localeProvider.locale,
       navigatorKey: navigatorKey,
       builder: (BuildContext context, Widget? child) {
