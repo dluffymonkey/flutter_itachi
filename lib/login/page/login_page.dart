@@ -8,7 +8,6 @@ import 'package:flutter_itachi/res/resources.dart';
 import 'package:flutter_itachi/routers/fluro_navigator.dart';
 import 'package:flutter_itachi/store/store_router.dart';
 import 'package:flutter_itachi/util/change_notifier_manage.dart';
-import 'package:flutter_itachi/util/log_utils.dart';
 import 'package:flutter_itachi/util/other_utils.dart';
 import 'package:flutter_itachi/widgets/my_app_bar.dart';
 import 'package:flutter_itachi/widgets/my_button.dart';
@@ -75,10 +74,6 @@ class _LoginPageState extends State<LoginPage> with ChangeNotifierMixin<LoginPag
   void _login() {
     SpUtil.putString(Constant.phone, _nameController.text);
     NavigatorUtils.push(context, StoreRouter.auditPage);
-  }
-
-  void _register() {
-    Log.d('注册按钮！');
   }
 
   @override
@@ -153,13 +148,8 @@ class _LoginPageState extends State<LoginPage> with ChangeNotifierMixin<LoginPag
             color: Theme.of(context).primaryColor
           ),
         ),
+        onTap: () => NavigatorUtils.push(context, LoginRouter.registerPage),
       ),
-    ),
-    Gaps.vGap16,
-    MyButton(
-      key: const Key('register'),
-      onPressed: _register,
-      text: '注册',
     ),
   ];
 }
