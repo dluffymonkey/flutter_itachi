@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_itachi/widgets/my_app_bar.dart';
+import 'package:flutter_itachi/widgets/state_layout.dart';
 
 class NotFoundPage extends StatelessWidget {
   const NotFoundPage({Key? key}) : super(key: key);
@@ -6,10 +8,13 @@ class NotFoundPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text('页面不存在')
+      appBar: MyAppBar(
+        centerTitle: '页面不存在',
       ),
-      body: Text('页面不存在'),
+      body: StateLayout(
+        type: StateType.account,
+        hintText: '页面不存在',
+      ),
     );
   }
 }
