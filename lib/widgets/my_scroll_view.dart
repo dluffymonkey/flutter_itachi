@@ -15,7 +15,7 @@ class MyScrollView extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.bottomButton,
     this.keyboardConfig,
-    this.tanOutsideToDismiss = false,
+    this.tapOutsideToDismiss = false,
     this.overScroll = 16.0,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class MyScrollView extends StatelessWidget {
   final Widget? bottomButton;
   final KeyboardActionsConfig? keyboardConfig;
   /// 键盘外部按下将其关闭
-  final bool tanOutsideToDismiss;
+  final bool tapOutsideToDismiss;
   /// 默认弹起位置在TextField的文字下面，可以添加此属性继续向上滑动一段距离。用来露出完整的TextField。
   final double overScroll;
 
@@ -50,7 +50,7 @@ class MyScrollView extends StatelessWidget {
           isDialog: bottomButton != null,
           overscroll: overScroll,
           config: keyboardConfig!,
-          tapOutsideBehavior:  tanOutsideToDismiss ? TapOutsideBehavior.opaqueDismiss : TapOutsideBehavior.none,
+          tapOutsideBehavior:  tapOutsideToDismiss ? TapOutsideBehavior.opaqueDismiss : TapOutsideBehavior.none,
           child: contents,
         );
       }
