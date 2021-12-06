@@ -4,6 +4,7 @@ import 'package:flutter_itachi/home/home_page.dart';
 import 'package:flutter_itachi/home/webview_page.dart';
 import 'package:flutter_itachi/routers/i_router.dart';
 import 'package:flutter_itachi/routers/not_found_page.dart';
+import 'package:flutter_itachi/shop/shop_router.dart';
 import 'package:flutter_itachi/store/store_router.dart';
 import 'package:flutter_itachi/login/login_router.dart';
 
@@ -35,7 +36,7 @@ class Routes {
     /// 各自路由由各自模块管理，统一在此添加初始化
     _listRouter.add(LoginRouter());
     _listRouter.add(StoreRouter());
-    // _listRouter.add(ShopRouter());
+    _listRouter.add(ShopRouter());
     // _listRouter.add(GoodsRouter());
     // _listRouter.add(OrderRouter());
     // _listRouter.add(AccountRouter());

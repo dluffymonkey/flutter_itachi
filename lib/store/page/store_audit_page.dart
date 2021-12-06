@@ -4,6 +4,7 @@ import 'package:flutter_2d_amap/flutter_2d_amap.dart';
 import 'package:flutter_itachi/res/gaps.dart';
 import 'package:flutter_itachi/res/resources.dart';
 import 'package:flutter_itachi/routers/fluro_navigator.dart';
+import 'package:flutter_itachi/shop/shop_router.dart';
 import 'package:flutter_itachi/store/store_router.dart';
 import 'package:flutter_itachi/util/other_utils.dart';
 import 'package:flutter_itachi/util/theme_utils.dart';
@@ -128,7 +129,7 @@ class _StoreAuditPageState extends State<StoreAuditPage> {
         title: '店铺地址',
         content: _address,
         onTap: () {
-          NavigatorUtils.pushResult(context, StoreRouter.auditPage, (result) {
+          NavigatorUtils.pushResult(context, ShopRouter.addressSelectPage, (result) {
             setState(() {
               final PoiSearch model = result as PoiSearch;
               _address = '${model.provinceName.nullSafe} ${model.cityName.nullSafe} ${model.adName.nullSafe} ${model.title.nullSafe}';
