@@ -11,6 +11,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_itachi/widgets/my_button.dart';
 import 'package:flutter_itachi/widgets/my_scroll_view.dart';
 import 'package:flutter_itachi/widgets/selected_image.dart';
+import 'package:flutter_itachi/widgets/selected_item.dart';
+import 'package:flutter_itachi/widgets/text_field_item.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
@@ -111,7 +113,57 @@ class _StoreAuditPageState extends State<StoreAuditPage> {
         ),
       ),
       Gaps.vGap16,
-
+      TextFieldItem(
+        focusNode: _nodeText1,
+        title: '店铺名称',
+        hintText: '填写店铺名称',
+      ),
+      SelectedItem(
+        title: '主营范围',
+        content: _sortName,
+        onTap: () => _showBottomSheet(),
+      ),
     ];
+  }
+
+  String _sortName = '';
+  final List<String> _list = ['水果生鲜', '家用电器', '休闲食品', '茶酒饮料', '美妆个护', '粮油调味', '家庭清洁', '厨具用品', '儿童玩具', '床上用品'];
+
+  void _showBottomSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        // 可滑动ListView关闭BottomSheet
+        return DraggableScrollableSheet(
+          key: const Key('goos_sort'),
+          initialChildSize: 0.7,
+          maxChildSize: 1,
+          minChildSize: 0.65,
+          expand: false,
+          builder: (_, scrollController) {
+            return ListView.builder(
+              controller: scrollController,
+              itemExtent: 48.0,
+              itemBuilder: (_, index) {
+                return InkWell(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    alignment: Alignment.centerLeft,
+                    child: Text(_list[index]),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      _sortName = _list[index];
+                    });
+                    NavigatorUtils.goBack(context);
+                  },
+                );
+              },
+              itemCount: _list.length,
+            );
+          },
+        );
+      }
+    );
   }
 }
